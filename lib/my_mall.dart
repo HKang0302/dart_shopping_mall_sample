@@ -120,6 +120,23 @@ class MyMall {
       print('장바구니에 담긴 상품이 없습니다.');
       return;
     }
+
+    // 재고 소진 확인
+    for (Product product in cart) {
+      int remainingQuantity =
+          Products.products
+              .firstWhere((element) => element.name == product.name)
+              .quantity;
+      if (product.quantity > remainingQuantity) {
+        print(
+          '상품 ${product.name}의 재고가 부족하여 상품을 삭제합니다.\n다시 입력해주세요.(남은 재고 ${remainingQuantity})',
+        );
+        totalCartPrice -= product.price * product.quantity;
+        cart.remove(product);
+        return;
+      }
+    }
+
     print('장바구니에 담긴 상품을 구매합니다. ${totalCartPrice}원이 결제됩니다.');
     for (Product product in cart) {
       Products
