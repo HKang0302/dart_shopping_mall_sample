@@ -1,7 +1,7 @@
 import 'package:mall/my_mall.dart';
 
 class Users {
-  static List<User> users = [];
+  static List<User> users = [User('test', 'test')];
 
   static void addUser(String id, String password) {
     users.add(User(id, password));
