@@ -15,7 +15,7 @@ class Admin {
         '---------------------------------------------------------------------------------------',
       );
       print(
-        '[1] 상품 추가 / [2] 상품 삭제 / [3] 상품 목록 보기 / [4] 기본 상품 목록으로 초기화 \n[0] 관리자모드 종료',
+        '[1] 상품 추가 / [2] 상품 삭제 / [3] 상품 목록 보기 / [4] 기본 상품 목록으로 초기화 \n[5] 상품 수량 변경 / [0] 관리자모드 종료',
       );
       print(
         '---------------------------------------------------------------------------------------',
@@ -75,6 +75,26 @@ class Admin {
           break;
         case '4':
           Products().getDefaultProducts();
+          break;
+        case '5':
+          print('변경할 상품의 이름을 입력해주세요.');
+          String? name;
+          while (name == null || name.isEmpty) {
+            name = stdin.readLineSync();
+            if (name == null || name.isEmpty) {
+              print('상품 이름을 다시 입력해주세요.');
+            }
+          }
+          print('변경할 수량을 입력해주세요.');
+          int? quantity;
+          while (quantity == null) {
+            String? tmpQuantity = stdin.readLineSync();
+            quantity = int.tryParse(tmpQuantity ?? '');
+            if (quantity == null) {
+              print('상품 수량을 다시 입력해주세요.');
+            }
+          }
+          Products().modifyQuantity(name, quantity);
           break;
         case '0':
           exit = true;
