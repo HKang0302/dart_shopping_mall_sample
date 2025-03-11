@@ -9,7 +9,7 @@ void main(List<String> arguments) {
   bool exit = false;
 
   while (!exit) {
-    print("1. 회원가입 / 2. 로그인 / 0. 관리자 로그인 / 3. 종료");
+    print("[1] 회원가입 / [2] 로그인 / [3] 관리자 로그인 / [0] 종료");
     String input = stdin.readLineSync() ?? '';
     switch (input) {
       case '1':
@@ -41,6 +41,15 @@ void main(List<String> arguments) {
         user.myMall.start();
         break;
       case '3':
+        print('관리자 비밀번호를 입력해주세요.');
+        String password = stdin.readLineSync() ?? '';
+        if (password != ADMIN_PASSWORD) {
+          print('비밀번호가 틀렸습니다.');
+          break;
+        }
+        Admin().startAdmin();
+        break;
+      case '0':
         exit = true;
         break;
       default:
