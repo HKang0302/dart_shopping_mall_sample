@@ -14,7 +14,7 @@ void main(List<String> arguments) {
       '---------------------------------------------------------------------------------------',
     );
     print(
-      '[1] 상품 목록 보기 / [2] 장바구니에 담기 / [3] 장바구니에 담긴 상품의 총 가격 보기\n[4] 프로그램 종료 / [0] 관리자 모드',
+      '[1] 상품 목록 보기 / [2] 장바구니에 담기 / [3] 장바구니에 담긴 상품의 총 가격 보기\n[4] 장바구니에 담긴 상품 구매하기 \n[99] 프로그램 종료 / [0] 관리자 모드',
     );
     print(
       '---------------------------------------------------------------------------------------',
@@ -31,15 +31,18 @@ void main(List<String> arguments) {
         myMall.showTotal();
         break;
       case '4':
+        myMall.purchaseCart();
+        break;
+      case '6':
+        myMall.initCart();
+        break;
+      case '99':
         print('정말 종료하시겠습니까? (5: 예 / 6: 아니요)');
         if (stdin.readLineSync() == '5') {
           exit = true;
         } else {
           print('종료하지 않습니다.');
         }
-        break;
-      case '6':
-        myMall.initCart();
         break;
       case '0':
         print('비밀번호를 입력해주세요.');
