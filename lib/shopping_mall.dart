@@ -2,25 +2,17 @@ import 'dart:io';
 import 'package:mall/product.dart';
 
 class ShoppingMall {
-  List<Product> products = [
-    Product('셔츠', 45000),
-    Product('원피스', 30000),
-    Product('반팔티', 35000),
-    Product('반바지', 38000),
-    Product('양말', 5000),
-  ];
-
   List<String> cart = [];
   int totalCartPrice = 0;
 
   void showProducts() {
-    for (var product in products) {
+    for (var product in Products.products) {
       print('${product.name} / ${product.price}원');
     }
   }
 
   bool isProductExist(Object object) {
-    for (Product product in products) {
+    for (Product product in Products.products) {
       if (product.name == object) {
         return true;
       }
@@ -47,7 +39,9 @@ class ShoppingMall {
       // 장바구니에 추가
       if (!cart.contains(name)) cart.add(name);
       totalCartPrice +=
-          products.firstWhere((element) => element.name == name).price *
+          Products.products
+              .firstWhere((element) => element.name == name)
+              .price *
           quantity;
       print('장바구니에 상품이 담겼어요 !');
     } catch (e) {
