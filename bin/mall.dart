@@ -1,61 +1,54 @@
 import 'dart:io';
 
 import 'package:mall/admin.dart';
-import 'package:mall/shopping_mall.dart';
+import 'package:mall/my_mall.dart';
+import 'package:mall/user.dart';
 
 void main(List<String> arguments) {
-  final String PASSWORD = '1234';
-
-  ShoppingMall myMall = ShoppingMall();
+  final String ADMIN_PASSWORD = '1234';
   bool exit = false;
 
   while (!exit) {
-    print(
-      '---------------------------------------------------------------------------------------',
-    );
-    print(
-      '[1] 상품 목록 보기 / [2] 장바구니에 담기 / [3] 장바구니에 담긴 상품의 총 가격 보기\n[4] 장바구니에 담긴 상품 구매하기 \n[99] 프로그램 종료 / [0] 관리자 모드',
-    );
-    print(
-      '---------------------------------------------------------------------------------------',
-    );
+    print("1. 회원가입 / 2. 로그인 / 0. 관리자 로그인 / 3. 종료");
     String input = stdin.readLineSync() ?? '';
     switch (input) {
       case '1':
-        myMall.showProducts();
-        break;
-      case '2':
-        myMall.addToCart();
-        break;
-      case '3':
-        myMall.showTotal();
-        break;
-      case '4':
-        myMall.purchaseCart();
-        break;
-      case '6':
-        myMall.initCart();
-        break;
-      case '99':
-        print('정말 종료하시겠습니까? (5: 예 / 6: 아니요)');
-        if (stdin.readLineSync() == '5') {
-          exit = true;
-        } else {
-          print('종료하지 않습니다.');
+        print('ID를 입력해주세요.');
+        String id = stdin.readLineSync() ?? '';
+        if (Users.findUser(id) != null) {
+          print('이미 존재하는 ID입니다.');
+          break;
         }
-        break;
-      case '0':
         print('비밀번호를 입력해주세요.');
         String password = stdin.readLineSync() ?? '';
-        if (password == PASSWORD) {
-          Admin admin = Admin();
-          admin.startAdmin();
-        } else {
-          print('비밀번호가 틀렸습니다.');
+        Users.addUser(id, password);
+        print('회원가입이 완료되었습니다.');
+        break;
+      case '2':
+        print('ID를 입력해주세요.');
+        String id = stdin.readLineSync() ?? '';
+        User? user = Users.findUser(id);
+        if (user == null) {
+          print('존재하지 않는 ID입니다.');
+          break;
         }
+        print('비밀번호를 입력해주세요.');
+        String password = stdin.readLineSync() ?? '';
+        if (user.password != password) {
+          print('비밀번호가 틀렸습니다.');
+          break;
+        }
+        user.myMall.start();
+        break;
+      case '3':
+        exit = true;
+        break;
       default:
         print('지원하지 않는 기능입니다 ! 다시 시도해 주세요 ..');
     }
   }
+
+  MyMall myMall = MyMall();
+
   print('이용해 주셔서 감사합니다 ~ 안녕히 가세요 !');
 }

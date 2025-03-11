@@ -1,9 +1,52 @@
 import 'dart:io';
 import 'package:mall/product.dart';
 
-class ShoppingMall {
+class MyMall {
   List<Product> cart = [];
   int totalCartPrice = 0;
+
+  void start() {
+    bool exit = false;
+    while (!exit) {
+      print(
+        '---------------------------------------------------------------------------------------',
+      );
+      print(
+        '[1] 상품 목록 보기 / [2] 장바구니에 담기 / [3] 장바구니에 담긴 상품의 총 가격 보기\n[4] 장바구니에 담긴 상품 구매하기',
+      );
+      print(
+        '---------------------------------------------------------------------------------------',
+      );
+      String input = stdin.readLineSync() ?? '';
+      switch (input) {
+        case '1':
+          showProducts();
+          break;
+        case '2':
+          addToCart();
+          break;
+        case '3':
+          showTotal();
+          break;
+        case '4':
+          purchaseCart();
+          break;
+        case '6':
+          initCart();
+          break;
+        case '0':
+          print('정말 로그아웃 하시겠습니까? (1: 예 / 2: 아니요)');
+          if (stdin.readLineSync() == '1') {
+            exit = true;
+          } else {
+            print('로그아웃하지 않습니다.');
+          }
+          break;
+        default:
+          print('지원하지 않는 기능입니다 ! 다시 시도해 주세요 ..');
+      }
+    }
+  }
 
   void showProducts() {
     for (var product in Products.products) {
