@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:mall/admin.dart';
-import 'package:mall/my_mall.dart';
 import 'package:mall/user.dart';
 
 void main(List<String> arguments) {
@@ -12,6 +11,7 @@ void main(List<String> arguments) {
     print("[1] 회원가입 / [2] 로그인 / [3] 관리자 로그인 / [0] 종료");
     String input = stdin.readLineSync() ?? '';
     switch (input) {
+      // 회원가입
       case '1':
         print('ID를 입력해주세요.');
         String id = stdin.readLineSync() ?? '';
@@ -24,6 +24,8 @@ void main(List<String> arguments) {
         Users.addUser(id, password);
         print('회원가입이 완료되었습니다.');
         break;
+
+      // 로그인
       case '2':
         print('ID를 입력해주세요.');
         String id = stdin.readLineSync() ?? '';
@@ -40,6 +42,8 @@ void main(List<String> arguments) {
         }
         user.myMall.start();
         break;
+
+      // 관리자 로그인
       case '3':
         print('관리자 비밀번호를 입력해주세요.');
         String password = stdin.readLineSync() ?? '';
@@ -49,9 +53,13 @@ void main(List<String> arguments) {
         }
         Admin().startAdmin();
         break;
+
+      // 종료
       case '0':
         exit = true;
         break;
+
+      // 지원하지 않는 기능
       default:
         print('지원하지 않는 기능입니다 ! 다시 시도해 주세요 ..');
     }

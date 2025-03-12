@@ -2,14 +2,14 @@ import 'dart:io';
 
 import 'package:mall/product.dart';
 
+/* 관리자 모드 진입 시 사용되는 코드입니다. */
 class Admin {
-  late bool isAdmin;
   bool exit = false;
 
   void startAdmin() {
-    isAdmin = true;
     print('관리자모드에 진입했습니다.');
 
+    // 관리자모드에서 사용할 수 있는 기능들을 출력합니다.
     while (!exit) {
       print(
         '---------------------------------------------------------------------------------------',
@@ -22,6 +22,7 @@ class Admin {
       );
       String input = stdin.readLineSync() ?? '';
       switch (input) {
+        // 상품 추가
         case '1':
           try {
             String? name;
@@ -59,6 +60,8 @@ class Admin {
             print(e.toString());
           }
           break;
+
+        // 상품 삭제
         case '2':
           print('삭제할 상품의 이름을 입력해주세요.');
           String? name;
@@ -70,12 +73,18 @@ class Admin {
           }
           Products().removeProduct(name);
           break;
+
+        // 상품 목록 보기
         case '3':
           Products().showProducts();
           break;
+
+        // 기본 상품 목록으로 초기화
         case '4':
           Products().getDefaultProducts();
           break;
+
+        // 상품 수량 변경
         case '5':
           print('변경할 상품의 이름을 입력해주세요.');
           String? name;
@@ -96,9 +105,13 @@ class Admin {
           }
           Products().modifyQuantity(name, quantity);
           break;
+
+        // 관리자모드 종료
         case '0':
           exit = true;
           break;
+
+        // 지원하지 않는 기능
         default:
           print('지원하지 않는 기능입니다 ! 다시 시도해 주세요 ..');
       }

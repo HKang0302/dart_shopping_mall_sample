@@ -1,9 +1,10 @@
 import 'dart:io';
 import 'package:mall/product.dart';
 
+/* 사용자 모드입니다. */
 class MyMall {
-  List<Product> cart = [];
-  int totalCartPrice = 0;
+  List<Product> cart = []; // 각 사용자의 장바구니
+  int totalCartPrice = 0; // 각 사용자의 장바구니 총 가격
 
   void start() {
     bool exit = false;
@@ -18,22 +19,34 @@ class MyMall {
         '---------------------------------------------------------------------------------------',
       );
       String input = stdin.readLineSync() ?? '';
+
       switch (input) {
+        // 상품 목록 보기
         case '1':
           showProducts();
           break;
+
+        // 장바구니에 담기
         case '2':
           addToCart();
           break;
+
+        //  장바구니 보기
         case '3':
           showTotal();
           break;
+
+        // 장바구니에 담긴 상품 구매하기
         case '4':
           purchaseCart();
           break;
+
+        // 장바구니 초기화
         case '5':
           initCart();
           break;
+
+        // 로그아웃
         case '0':
           print('정말 로그아웃 하시겠습니까? (1: 예 / 2: 아니요)');
           if (stdin.readLineSync() == '1') {
@@ -42,18 +55,22 @@ class MyMall {
             print('로그아웃하지 않습니다.');
           }
           break;
+
+        // 지원하지 않는 기능
         default:
           print('지원하지 않는 기능입니다 ! 다시 시도해 주세요 ..');
       }
     }
   }
 
+  /* 상품 목록을 보여주는 함수입니다. */
   void showProducts() {
     for (var product in Products.products) {
       print('${product.name} / ${product.price}원');
     }
   }
 
+  /* 상품이 존재하는지 확인하는 함수입니다. */
   bool isProductExist(Object object) {
     for (Product product in Products.products) {
       if (product.name == object) {
@@ -63,6 +80,7 @@ class MyMall {
     return false;
   }
 
+  /* 장바구니에 상품을 추가하는 함수입니다. */
   void addToCart() {
     late String name;
     late int? quantity;
@@ -104,6 +122,7 @@ class MyMall {
     }
   }
 
+  /* 장바구니에 담긴 상품을 보여주는 함수입니다. */
   void showTotal() {
     if (cart.isEmpty || totalCartPrice == 0) {
       print('장바구니에 담긴 상품이 없습니다.');
@@ -115,6 +134,7 @@ class MyMall {
     );
   }
 
+  /* 장바구니에 담긴 상품을 구매하는 함수입니다. */
   void purchaseCart() {
     if (cart.isEmpty || totalCartPrice == 0) {
       print('장바구니에 담긴 상품이 없습니다.');
@@ -138,6 +158,8 @@ class MyMall {
     }
 
     print('장바구니에 담긴 상품을 구매합니다. ${totalCartPrice}원이 결제됩니다.');
+
+    // 재고 갱신
     for (Product product in cart) {
       Products
           .products
@@ -145,12 +167,14 @@ class MyMall {
           .quantity -= product.quantity;
     }
 
+    // 초기화
     cart.clear();
     totalCartPrice = 0;
 
     print('결제가 완료되었습니다.');
   }
 
+  /* 장바구니를 초기화하는 함수입니다. */
   void initCart() {
     print('장바구니를 초기화합니다.');
     if (cart.isEmpty || totalCartPrice == 0) {
