@@ -8,14 +8,14 @@ class Product {
 
 /* 상품 목록을 관리하는 클래스입니다. */
 class Products {
-  final List<Product> DEFAULT_PRODUCTS = [
+  static final List<Product> DEFAULT_PRODUCTS = [
     Product('셔츠', 45000, 10),
     Product('원피스', 30000, 20),
     Product('반팔티', 35000, 30),
     Product('반바지', 38000, 40),
     Product('양말', 5000, 50),
   ]; // 상품 목록
-  static List<Product> products = []; // 상품 목록
+  static List<Product> products = DEFAULT_PRODUCTS; // 상품 목록
 
   /* 상품을 추가하는 함수입니다. */
   void addProduct(String name, int price, int quantity) {
