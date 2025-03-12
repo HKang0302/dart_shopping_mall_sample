@@ -18,6 +18,11 @@ class Users {
     }
     return null;
   }
+
+  /* 사용자를 삭제하는 함수입니다. */
+  static void deleteUser(String id) {
+    users.removeWhere((user) => user.id == id);
+  }
 }
 
 /* 사용자 클래스입니다. */
